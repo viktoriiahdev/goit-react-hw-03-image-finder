@@ -33,7 +33,7 @@ class App extends React.Component {
     if (prevState.page === page && prevState.query === query) return;
 
     let currentPage = page;
-    if (prevState.query != query) currentPage = 1;
+    if (prevState.query !== query) currentPage = 1;
     this.setState({ loading: true });
 
     setTimeout(() => {
