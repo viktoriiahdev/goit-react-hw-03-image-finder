@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import GalleryModal from './Modal.styled';
 
 class Modal extends React.Component {
@@ -32,3 +34,9 @@ class Modal extends React.Component {
 }
 
 export default Modal;
+
+Modal.propTypes = {
+  img: PropTypes.string.isRequired,
+  alt: PropTypes.string,
+  onClose: PropTypes.func.isRequired,
+};

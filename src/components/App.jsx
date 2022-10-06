@@ -1,14 +1,12 @@
 import React, { StrictMode } from 'react';
 
-import { Circles } from 'react-loader-spinner';
-// import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
-
 import styled from 'styled-components';
 
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
+import Loader from './Loader/Loader';
 
 const Section = styled.section`
   display: grid;
@@ -87,21 +85,7 @@ class App extends React.Component {
 
           {images && <ImageGallery images={images} onOpen={this.onModalToggle} />}
           {loadMore && <Button onClick={this.loadMore} disabled={loading} />}
-          <Circles
-            height="80"
-            width="80"
-            color="#bff7ca"
-            ariaLabel="circles-loading"
-            wrapperStyle={{
-              position: 'fixed',
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: 99,
-            }}
-            wrapperClass=""
-            visible={loading}
-          />
+          <Loader visible={loading} />
           {modalImage && <Modal img={modalImage} alt="" onClose={this.onModalToggle} />}
         </Section>
       </StrictMode>
