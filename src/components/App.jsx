@@ -1,19 +1,13 @@
 import React, { StrictMode } from 'react';
 
-import styled from 'styled-components';
+import { fetchImages } from 'services/fetchImages';
 
+import Section from './Section/Section.styled';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
 import Modal from './Modal/Modal';
 import Loader from './Loader/Loader';
-
-const Section = styled.section`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 40px;
-  padding-bottom: 24px;
-`;
 
 class App extends React.Component {
   state = {
@@ -35,9 +29,7 @@ class App extends React.Component {
     this.setState({ loading: true });
 
     setTimeout(() => {
-      fetch(
-        `https://pixabay.com/api/?page=${currentPage}&key=30324488-6bb1c38396bab0c48c780a7b6&image_type=photo&orientation=horizontal&per_page=${perPage}&q=${query}`
-      )
+      fetchImages(query, currentPage, perPage)
         .then(res => res.json())
         .then(json => {
           if (currentPage === 1) this.setState({ images: json.hits, page: currentPage });
@@ -82,7 +74,6 @@ class App extends React.Component {
       <StrictMode>
         <Section>
           <Searchbar onSubmit={this.searchImages} />
-
           {images && <ImageGallery images={images} onOpen={this.onModalToggle} />}
           {loadMore && <Button onClick={this.loadMore} disabled={loading} />}
           <Loader visible={loading} />
