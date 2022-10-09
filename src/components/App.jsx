@@ -30,7 +30,6 @@ class App extends React.Component {
 
     setTimeout(() => {
       fetchImages(query, currentPage, perPage)
-        .then(res => res.json())
         .then(json => {
           if (currentPage === 1) this.setState({ images: json.hits, page: currentPage });
           else
