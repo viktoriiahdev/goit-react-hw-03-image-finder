@@ -28,21 +28,19 @@ class App extends React.Component {
     if (prevState.query !== query) currentPage = 1;
     this.setState({ loading: true });
 
-    setTimeout(() => {
-      fetchImages(query, currentPage, perPage)
-        .then(json => {
-          if (currentPage === 1) this.setState({ images: json.hits, page: currentPage });
-          else
-            this.setState(prev => ({
-              images: [...prev.images, ...json.hits],
-            }));
+    fetchImages(query, currentPage, perPage)
+      .then(json => {
+        if (currentPage === 1) this.setState({ images: json.hits, page: currentPage });
+        else
+          this.setState(prev => ({
+            images: [...prev.images, ...json.hits],
+          }));
 
-          this.setState({
-            total: json.total,
-          });
-        })
-        .finally(this.setState({ loading: false }));
-    }, 600);
+        this.setState({
+          total: json.total,
+        });
+      })
+      .finally(this.setState({ loading: false }));
   }
 
   searchImages = query => {
